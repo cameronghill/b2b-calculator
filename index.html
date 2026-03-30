@@ -354,7 +354,7 @@ const cfg={adminSell:8.37*1.5,perSKUSell:0.63*1.5,casePickSell:1.14*1.5,palletPr
 
 const ULEZ_ZONES=new Set([101,103,104,105,131,132]);
 
-{const pc=raw.trim().toUpperCase().replace(/\s+/g,'');if(!pc)return null;const m=pc.match(/^([A-Z]{1,2})(\d{1,2})[A-Z]?\d[A-Z]{2}$/)||pc.match(/^([A-Z]{1,2})(\d{1,2})/);return m?{prefix:m[1],num:parseInt(m[2],10)}:null;}
+function parsePC(raw){const pc=raw.trim().toUpperCase().replace(/\s+/g,'');if(!pc)return null;const m=pc.match(/^([A-Z]{1,2})(\d{1,2})[A-Z]?\d[A-Z]{2}$/)||pc.match(/^([A-Z]{1,2})(\d{1,2})/);return m?{prefix:m[1],num:parseInt(m[2],10)}:null;}
 function lookupZone(raw){const p=parsePC(raw);if(!p)return null;if(p.prefix==='W'&&p.num===1){const h=POSTCODE_ZONES.find(r=>r[0]==='W1');if(h)return h[3];}const h=POSTCODE_ZONES.find(r=>r[0]===p.prefix&&p.num>=r[1]&&p.num<=r[2]);return h?h[3]:null;}
 function showField(id,show){const el=document.getElementById(id);if(!el)return;if(show){el.classList.remove('hidden');el.classList.add('showing');setTimeout(()=>el.classList.remove('showing'),250);}else{el.classList.add('hidden');}}
 function getVal(id){const el=document.getElementById(id);if(!el)return 0;const v=parseFloat(el.value);return isNaN(v)?0:v;}
