@@ -381,7 +381,7 @@ function calculate(){
   else if(zone){zb.textContent='Zone '+zone;zb.className='zone-pill found';pe.classList.remove('show');}
   else{zb.textContent='Not found';zb.className='zone-pill not-found';pe.classList.add('show');}
 
-  const hasData=skus>0||units>0||palletRequired==='Yes'||packagingType!=='No Packaging Required (Pre-boxed)'||asinRequired==='Yes';
+  const hasData=skus>0||units>0||palletRequired==='Yes'||packagingType!=='No Packaging Required (Pre-boxed)'||asinRequired==='Yes'||pickingType!==''||packagingType!=='';
   if(!hasData){document.getElementById('resultsBody').innerHTML='<div class="empty-state"><div class="empty-icon">🧮</div><div class="empty-text">Enter order details above to see pricing</div></div>';return;}
 
   const orderHandling=cfg.adminSell;
@@ -450,11 +450,7 @@ function resetForm(){
 }
 
 document.querySelectorAll('input,select').forEach(el=>{el.addEventListener('input',calculate);el.addEventListener('change',calculate);});
-document.getElementById('varPostcode').addEventListener('blur',function(){
-  const v=this.value.trim().toUpperCase();
-  if(v&&!v.includes(' ')){const m=v.match(/^([A-Z]{1,2}\d{1,2}[A-Z]?)(\d[A-Z]{2})$/);if(m)this.value=m[1]+' '+m[2];}
-  calculate();
-});
+document.getElementById('varPostcode').addEventListener('input',calculate);
 calculate();
 </script>
 </body>
